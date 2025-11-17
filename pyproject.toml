@@ -1,0 +1,3 @@
+# Change the black formatter to use 120 characters per line
+[tool.black]
+line-length = 200
