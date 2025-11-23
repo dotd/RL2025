@@ -121,6 +121,8 @@ def train():
 
     epsilon = epsilon_start
     total_steps = 0
+    time_training = float("nan")
+
     for episode in range(num_episodes):
         steps_done = 0
         obs, _ = env.reset()

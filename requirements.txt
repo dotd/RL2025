@@ -19,10 +19,10 @@ numpy==2.0.2
 opencv-python==4.12.0.88
 packaging==25.0
 pillow==11.3.0
+pygame==2.6.1
 pyparsing==3.2.5
 python-dateutil==2.9.0.post0
-# Editable Git install with no remote (RL2025==0.1)
--e /Users/dotan/projects/RL2025
+-e git+https://github.com/dotd/RL2025.git@b7d70887a96b4d987500492c06c324ce18fadb8d#egg=RL2025
 six==1.17.0
 sympy==1.14.0
 torch==2.8.0
