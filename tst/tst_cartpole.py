@@ -153,6 +153,8 @@ def train_agent(
     learning_rate,
     batch_size,
     buffer_size,
+    threshold_early_stopping,
+    episodes_early_stopping,
 ):
     logging.info("Train the DQN agent on CartPole")
     env = gym.make("CartPole-v1")
@@ -219,7 +221,7 @@ def train_agent(
             )
 
         # Check if solved (average score of 195+ over 100 episodes)
-        if avg_score >= 400 and episode >= 200:
+        if avg_score >= threshold_early_stopping and episode >= episodes_early_stopping:
             logging.info(f"Solved in {episode + 1} episodes!")
             logging.info(f"Average Score: {avg_score:.2f}")
             break
@@ -397,6 +399,8 @@ def main(args):
         learning_rate=args.learning_rate,
         batch_size=args.batch_size,
         buffer_size=args.buffer_size,
+        threshold_early_stopping=args.threshold_early_stopping,
+        episodes_early_stopping=args.episodes_early_stopping,
     )
 
     logging.info("Testing the agent")
@@ -425,5 +429,7 @@ if __name__ == "__main__":
     parser.add_argument("--batch_size", type=int, default=64)
     parser.add_argument("--buffer_size", type=int, default=5000)
     parser.add_argument("--gamma", type=float, default=0.99)
+    parser.add_argument("--threshold_early_stopping", type=int, default=450)
+    parser.add_argument("--episodes_early_stopping", type=int, default=200)
     args = parser.parse_args()
     main(args)
