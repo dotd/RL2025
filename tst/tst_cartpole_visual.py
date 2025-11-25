@@ -11,6 +11,7 @@ import matplotlib.pyplot as plt
 import cv2
 import logging
 from datetime import datetime
+import time
 
 from RL2025.definitions import PROJECT_ROOT_DIR
 
@@ -259,6 +260,8 @@ def train_agent(
         network_start_path,
     )
 
+    start_time = time.time()
+    logging.info(f"Start time: {datetime.fromtimestamp(start_time).strftime('%Y-%m-%d %H:%M:%S')}")
     scores = []
     avg_scores = []
     losses = []
@@ -304,6 +307,7 @@ def train_agent(
             state = next_state
             total_reward += reward
 
+        average_time = (time.time() - start_time) / (episode + 1)
         # Update target network
         if episode % agent.target_update_freq == 0:
             agent.update_target_network()
@@ -327,6 +331,8 @@ def train_agent(
                 f"Avg Score: {avg_score:.2f} | "
                 f"Epsilon: {agent.epsilon:.3f}"
             )
+            logging.info(f"Average time per episode: {average_time:.2f} seconds")
+            logging.info(f"Time remaining: {average_time * (episodes - episode - 1):.2f} seconds")
 
         # Save checkpoint
         if episode % frequency_save_check_points == 0 or episode == episodes - 1:
@@ -565,7 +571,7 @@ def main(args):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument("--train_episodes", type=int, default=3, help="Number of episodes to train the agent")
+    parser.add_argument("--train_episodes", type=int, default=10000, help="Number of episodes to train the agent")
     parser.add_argument("--ender_frequency", type=int, default=100, help="Frequency of updating the target network")
     parser.add_argument("--test_episodes", type=int, default=100, help="Number of episodes to test the agent")
     parser.add_argument("--epsilon", type=float, default=0.01, help="Epsilon-greedy exploration rate. Starting value.")
