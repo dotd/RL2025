@@ -10,6 +10,8 @@ import random
 import matplotlib.pyplot as plt
 import cv2
 import logging
+from datetime import datetime
+
 from RL2025.definitions import PROJECT_ROOT_DIR
 
 
@@ -91,6 +93,10 @@ class DQNAgent:
         batch_size,
         buffer_size,
         num_frames,
+        optimization_type,
+        scheduler_type,
+        frequency_save_check_points,
+        network_start_path,
     ):
 
         self.action_size = action_size
@@ -105,16 +111,37 @@ class DQNAgent:
         self.batch_size = batch_size
         self.buffer_size = buffer_size
         self.target_update_freq = ender_frequency
-
+        self.optimization_type = optimization_type
+        self.scheduler_type = scheduler_type
+        self.frequency_save_check_points = frequency_save_check_points  # frequency of saving the model checkpoint
         # Networks
         self.device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
         self.policy_net = DQN(action_size, num_frames).to(self.device)
         self.target_net = DQN(action_size, num_frames).to(self.device)
         self.target_net.load_state_dict(self.policy_net.state_dict())
-        self.target_net.eval()
+        if network_start_path is not None:
+            self.policy_net.load_state_dict(torch.load(network_start_path, map_location=self.device))
+            self.target_net.load_state_dict(self.policy_net.state_dict())
+            logging.info(f"Network loaded from {network_start_path}")
+        else:
+            logging.info("Starting from scratch")
 
-        # Optimizer and memory
-        self.optimizer = optim.Adam(self.policy_net.parameters(), lr=self.learning_rate)
+        # Optimizer
+        if self.optimization_type.lower() == "adam".lower():
+            self.optimizer = optim.Adam(self.policy_net.parameters(), lr=self.learning_rate)
+        else:
+            raise ValueError(f"Invalid optimization type: {self.optimization_type}")
+
+        if self.scheduler_type is None or self.scheduler_type == "None":
+            self.scheduler = None
+        elif self.scheduler_type.lower() == "cosineannealingwarmrestarts".lower():
+            self.scheduler = optim.lr_scheduler.CosineAnnealingWarmRestarts(self.optimizer, T_0=100, T_mult=2, eta_min=0.001)
+        elif self.scheduler_type.lower() == "reducelronplateau".lower():
+            self.scheduler = optim.lr_scheduler.ReduceLROnPlateau(self.optimizer, mode="max", factor=0.5, patience=50, min_lr=0.001)
+        else:
+            raise ValueError(f"Invalid scheduler type: {self.scheduler_type}")
+
+        # Replay buffer
         self.memory = ReplayBuffer(self.buffer_size)
 
     def select_action(self, state, training=True):
@@ -179,7 +206,8 @@ class DQNAgent:
         self.optimizer.zero_grad()
         loss.backward()
         self.optimizer.step()
-
+        if self.scheduler is not None:
+            self.scheduler.step()
         return loss.item()
 
     def update_target_network(self):
@@ -192,6 +220,7 @@ class DQNAgent:
 
 
 def train_agent(
+    run_folder,
     episodes,
     ender_frequency,
     gamma,
@@ -204,12 +233,31 @@ def train_agent(
     threshold_early_stopping,
     episodes_early_stopping,
     num_frames,
+    optimization_type,
+    scheduler_type,
+    frequency_save_check_points,  # frequency of saving the model checkpoint
+    network_start_path,
 ):
     logging.info("Train the DQN agent on CartPole using vision input")
     env = gym.make("CartPole-v1", render_mode="rgb_array")
     action_size = env.action_space.n
 
-    agent = DQNAgent(action_size, ender_frequency, gamma, epsilon, epsilon_min, epsilon_decay, learning_rate, batch_size, buffer_size, num_frames)
+    agent = DQNAgent(
+        action_size,
+        ender_frequency,
+        gamma,
+        epsilon,
+        epsilon_min,
+        epsilon_decay,
+        learning_rate,
+        batch_size,
+        buffer_size,
+        num_frames,
+        optimization_type,
+        scheduler_type,
+        frequency_save_check_points,
+        network_start_path,
+    )
 
     scores = []
     avg_scores = []
@@ -280,6 +328,13 @@ def train_agent(
                 f"Epsilon: {agent.epsilon:.3f}"
             )
 
+        # Save checkpoint
+        if episode % frequency_save_check_points == 0 or episode == episodes - 1:
+            checkpoint_folder = f"{run_folder}/checkpoints/"
+            os.makedirs(checkpoint_folder, exist_ok=True)
+            torch.save(agent.policy_net.state_dict(), f"{checkpoint_folder}/checkpoint_{episode}.pth")
+            logging.info(f"Checkpoint saved to {checkpoint_folder}/checkpoint_{episode}.pth")
+
         # Check if solved (average score of 195+ over 100 episodes)
         if avg_score >= threshold_early_stopping and episode >= episodes_early_stopping:
             logging.info(f"Solved in {episode + 1} episodes!")
@@ -289,12 +344,12 @@ def train_agent(
     env.close()
 
     # Plot results
-    plot_results(scores, avg_scores, losses)
+    plot_results(run_folder, scores, avg_scores, losses)
 
     return agent, scores
 
 
-def plot_results(scores, avg_scores, losses):
+def plot_results(run_folder, scores, avg_scores, losses):
     logging.info("Plot training results")
     fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(14, 5))
 
@@ -317,14 +372,13 @@ def plot_results(scores, avg_scores, losses):
         ax2.grid(True, alpha=0.3)
 
     plt.tight_layout()
-    plt.savefig(f"{PROJECT_ROOT_DIR}/data/cartpole/cartpole_training.png", dpi=150, bbox_inches="tight")
-    logging.info(f"Training plot saved to {PROJECT_ROOT_DIR}/data/cartpole/cartpole_training.png")
+    plt.savefig(f"{run_folder}/cartpole_training.png", dpi=150, bbox_inches="tight")
+    logging.info(f"Training plot saved to {run_folder}/cartpole_training.png")
 
 
-def test_agent(agent, num_episodes=10, render=False):
+def test_agent(run_folder, agent, num_episodes=10):
     """Test the trained agent"""
-    render_mode = "human" if render else "rgb_array"
-    env = gym.make("CartPole-v1", render_mode=render_mode)
+    env = gym.make("CartPole-v1", render_mode="rgb_array")
 
     logging.info("Testing trained agent...")
     logging.info("-" * 50)
@@ -335,25 +389,26 @@ def test_agent(agent, num_episodes=10, render=False):
         _, _ = env.reset()
         # Get initial frame and preprocess
         frame = env.render()
-        state = preprocess_frame(frame) if frame is not None else None
+        frame_processed = preprocess_frame(frame)
+        frames = deque(maxlen=agent.num_frames)
+        for _ in range(agent.num_frames):
+            frames.append(frame_processed)
+        state = np.array(frames)
 
         total_reward = 0
         done = False
 
         while not done:
-            if state is None:
-                # If render mode is None, we can't get frames
-                logging.warning("Cannot test vision-based agent without render mode")
-                break
-
+            # Select and perform action
             action = agent.select_action(state, training=False)
             _, reward, terminated, truncated, _ = env.step(action)
             done = terminated or truncated
 
-            # Get next frame
-            frame = env.render()
-            if frame is not None:
-                state = preprocess_frame(frame)
+            # Get next frame and preprocess
+            # next_frame = env.render()
+            # next_frame_processed = preprocess_frame(next_frame)
+            # frames.append(next_frame_processed)
+            # next_state = np.array(frames)
 
             total_reward += reward
 
@@ -387,7 +442,7 @@ def record_video(agent, model_path=None, output_path="cartpole_agent_video.mp4",
     logging.info("-" * 50)
 
     # Collect frames from a successful episode
-    frames = []
+    frames_video = []
     total_reward = 0
     done = False
     max_steps = 500  # Maximum steps for CartPole-v1
@@ -396,19 +451,25 @@ def record_video(agent, model_path=None, output_path="cartpole_agent_video.mp4",
     # Run until we get a successful episode (500 steps) or maximum attempts
     for attempt in range(10):
         _, _ = env.reset()
-        frames = []
+        frames = deque(maxlen=agent.num_frames)
         total_reward = 0
         done = False
         step_count = 0
 
         # Get initial frame and preprocess
         frame = env.render()
-        state = preprocess_frame(frame)
+        frames_video.append(frame)
+        frame_processed = preprocess_frame(frame)
+        for _ in range(agent.num_frames):
+            frames.append(frame_processed)
+        state = np.array(frames)
 
         while not done and step_count < max_steps:
             # Render and save frame (before action to show state)
             frame = env.render()
-            frames.append(frame.copy())
+            frame_processed = preprocess_frame(frame)
+            frames.append(frame_processed)
+            state = np.array(frames)
 
             # Select action using preprocessed state
             action = agent.select_action(state, training=False)
@@ -416,9 +477,6 @@ def record_video(agent, model_path=None, output_path="cartpole_agent_video.mp4",
             done = terminated or truncated
 
             # Get next frame and preprocess for next iteration
-            next_frame = env.render()
-            if next_frame is not None:
-                state = preprocess_frame(next_frame)
 
             total_reward += reward
             step_count += 1
@@ -427,7 +485,7 @@ def record_video(agent, model_path=None, output_path="cartpole_agent_video.mp4",
         if step_count >= max_steps:
             frame = env.render()
             if frame is not None:
-                frames.append(frame.copy())
+                frames_video.append(frame.copy())
 
         # If we reached max steps, this is a successful episode
         if step_count >= max_steps or total_reward >= 500:
@@ -438,17 +496,17 @@ def record_video(agent, model_path=None, output_path="cartpole_agent_video.mp4",
 
     env.close()
 
-    if not frames:
+    if not frames_video:
         logging.error("Error: No frames collected!")
         return
 
     # Save frames as video
     logging.info(f"Saving {len(frames)} frames to {output_path}...")
 
-    height, width, layers = frames[0].shape
+    height, width, layers = frames_video[0].shape
     fourcc = cv2.VideoWriter_fourcc(*"mp4v")
     video = cv2.VideoWriter(output_path, fourcc, fps, (width, height))
-    for frame in frames:
+    for frame in frames_video:
         # Convert RGB to BGR for cv2
         frame_bgr = cv2.cvtColor(frame, cv2.COLOR_RGB2BGR)
         video.write(frame_bgr)
@@ -461,10 +519,8 @@ def record_video(agent, model_path=None, output_path="cartpole_agent_video.mp4",
 
 
 def main(args):
-    model_folder = f"{PROJECT_ROOT_DIR}/data/cartpole/"
-    os.makedirs(model_folder, exist_ok=True)
-    video_folder = f"{PROJECT_ROOT_DIR}/data/cartpole/"
-    os.makedirs(video_folder, exist_ok=True)
+    run_folder = f"{args.run_folder}/"
+    os.makedirs(run_folder, exist_ok=True)
     logging.basicConfig(level=logging.INFO, format="%(levelname)s> %(message)s")
     logging.info("Starting the program")
 
@@ -475,6 +531,7 @@ def main(args):
 
     logging.info("Training the agent")
     agent, scores = train_agent(
+        run_folder=args.run_folder,
         episodes=args.train_episodes,
         ender_frequency=args.ender_frequency,
         gamma=args.gamma,
@@ -487,36 +544,63 @@ def main(args):
         threshold_early_stopping=args.threshold_early_stopping,
         episodes_early_stopping=args.episodes_early_stopping,
         num_frames=args.num_frames,
+        optimization_type=args.optimization_type,
+        scheduler_type=args.scheduler_type,
+        frequency_save_check_points=args.frequency_save_check_points,
+        network_start_path=args.network_start_path,
     )
 
     logging.info("Testing the agent")
-    test_scores = test_agent(agent, num_episodes=args.test_episodes)
+    test_scores = test_agent(run_folder, agent, num_episodes=args.test_episodes)
     logging.info(f"Test scores: {test_scores}")
 
     logging.info("Saving the model")
-    torch.save(agent.policy_net.state_dict(), f"{model_folder}/cartpole_dqn_model.pth")
-    logging.info(f"Model saved to {model_folder}/cartpole_dqn_model.pth")
+    torch.save(agent.policy_net.state_dict(), f"{run_folder}/test_model.pth")
+    logging.info(f"Model saved to {run_folder}/test_model.pth")
 
     # Record a video of the agent playing
     logging.info("Recording a video of the agent playing")
-    record_video(agent, model_path=None, output_path=f"{video_folder}/cartpole_agent_video.mp4")
+    record_video(agent, model_path=None, output_path=f"{run_folder}/cartpole_agent_video.mp4")
 
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument("--train_episodes", type=int, default=5000)
-    parser.add_argument("--hidden_size", type=int, default=256)
-    parser.add_argument("--ender_frequency", type=int, default=100)
-    parser.add_argument("--test_episodes", type=int, default=100)
-    parser.add_argument("--epsilon", type=float, default=0.3)
-    parser.add_argument("--epsilon_min", type=float, default=0.01)
-    parser.add_argument("--epsilon_decay", type=float, default=0.999)
-    parser.add_argument("--learning_rate", type=float, default=0.01)
-    parser.add_argument("--batch_size", type=int, default=64)
-    parser.add_argument("--buffer_size", type=int, default=5000)
-    parser.add_argument("--gamma", type=float, default=0.99)
-    parser.add_argument("--threshold_early_stopping", type=int, default=450)
-    parser.add_argument("--episodes_early_stopping", type=int, default=200)
-    parser.add_argument("--num_frames", type=int, default=2)
+    parser.add_argument("--train_episodes", type=int, default=3, help="Number of episodes to train the agent")
+    parser.add_argument("--ender_frequency", type=int, default=100, help="Frequency of updating the target network")
+    parser.add_argument("--test_episodes", type=int, default=100, help="Number of episodes to test the agent")
+    parser.add_argument("--epsilon", type=float, default=0.01, help="Epsilon-greedy exploration rate. Starting value.")
+    parser.add_argument("--epsilon_min", type=float, default=0.01, help="Minimum epsilon-greedy exploration rate. Ending value.")
+    parser.add_argument("--epsilon_decay", type=float, default=0.999, help="Epsilon-greedy exploration rate exponential decay.")
+    parser.add_argument("--learning_rate", type=float, default=0.001, help="Learning rate. How much to update the weights of the network each step.")
+    parser.add_argument("--batch_size", type=int, default=64, help="Batch size. How many samples to use for each training step.")
+    parser.add_argument("--buffer_size", type=int, default=5000, help="Buffer size. How many samples to store in the replay buffer.")
+    parser.add_argument("--gamma", type=float, default=0.99, help="Discount factor. How much to discount the future rewards.")
+    parser.add_argument("--frequency_save_check_points", type=int, default=20, help="Frequency of saving the model checkpoint.")
+    current_timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+    parser.add_argument(
+        "--run_folder", type=str, default=f"{PROJECT_ROOT_DIR}/data/cartpole_vision/run_{current_timestamp}/", help="Folder to save the model."
+    )
+    parser.add_argument(
+        "--threshold_early_stopping",
+        type=int,
+        default=450,
+        help="Threshold for early stopping.",
+    )
+    parser.add_argument(
+        "--episodes_early_stopping",
+        type=int,
+        default=200,
+        help="Number of episodes for early stopping. If the number of episodes is above this threshold, stop training.",
+    )
+    parser.add_argument("--num_frames", type=int, default=2, help="Number of frames to stack. How many frames to stack to get the state.")
+    parser.add_argument("--optimization_type", type=str, default="Adam", help="Optimization type. Adam, SGD.")
+    parser.add_argument(
+        "--scheduler_type",
+        type=str,
+        default="None",
+        help="Optimization type. None, CosineAnnealingWarmRestarts, ReduceLROnPlateau.",
+    )
+    ready_model_path = f"{PROJECT_ROOT_DIR}/data/cartpole_vision/chech_points/cartpole_dqn_model_checkpoint_episode_4980.pth"
+    parser.add_argument("--network_start_path", type=str, default=None, help="Path to the network to start from.")
     args = parser.parse_args()
     main(args)

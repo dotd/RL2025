@@ -2,3 +2,4 @@ venv/
 data/
 *.egg-info
 .DS_Store
+api_keys/
