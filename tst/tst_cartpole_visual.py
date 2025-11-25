@@ -574,7 +574,7 @@ if __name__ == "__main__":
     parser.add_argument("--train_episodes", type=int, default=10000, help="Number of episodes to train the agent")
     parser.add_argument("--ender_frequency", type=int, default=100, help="Frequency of updating the target network")
     parser.add_argument("--test_episodes", type=int, default=100, help="Number of episodes to test the agent")
-    parser.add_argument("--epsilon", type=float, default=0.01, help="Epsilon-greedy exploration rate. Starting value.")
+    parser.add_argument("--epsilon", type=float, default=0.5, help="Epsilon-greedy exploration rate. Starting value.")
     parser.add_argument("--epsilon_min", type=float, default=0.01, help="Minimum epsilon-greedy exploration rate. Ending value.")
     parser.add_argument("--epsilon_decay", type=float, default=0.999, help="Epsilon-greedy exploration rate exponential decay.")
     parser.add_argument("--learning_rate", type=float, default=0.001, help="Learning rate. How much to update the weights of the network each step.")
