@@ -12,6 +12,7 @@ import cv2
 import logging
 from datetime import datetime
 import time
+import math
 
 from RL2025.definitions import PROJECT_ROOT_DIR
 
@@ -85,11 +86,12 @@ class DQNAgent:
     def __init__(
         self,
         action_size,
-        ender_frequency,
+        target_update_freq,
         gamma,
         epsilon,
         epsilon_min,
         epsilon_decay,
+        tau_decay,
         learning_rate,
         batch_size,
         buffer_size,
@@ -108,10 +110,12 @@ class DQNAgent:
         self.epsilon = epsilon
         self.epsilon_min = epsilon_min
         self.epsilon_decay = epsilon_decay
+        self.tau_decay = tau_decay
+        self.steps_done = 0
         self.learning_rate = learning_rate
         self.batch_size = batch_size
         self.buffer_size = buffer_size
-        self.target_update_freq = ender_frequency
+        self.target_update_freq = target_update_freq
         self.optimization_type = optimization_type
         self.scheduler_type = scheduler_type
         self.frequency_save_check_points = frequency_save_check_points  # frequency of saving the model checkpoint
@@ -217,17 +221,20 @@ class DQNAgent:
 
     def decay_epsilon(self):
         """Decay exploration rate"""
-        self.epsilon = max(self.epsilon_min, self.epsilon * self.epsilon_decay)
+        self.epsilon = self.epsilon_min + (self.epsilon - self.epsilon_min) * math.exp(-self.steps_done / self.tau_decay)
+        # self.epsilon = max(self.epsilon_min, self.epsilon)
+        self.steps_done += 1
 
 
 def train_agent(
     run_folder,
     episodes,
-    ender_frequency,
+    target_update_freq,
     gamma,
     epsilon,
     epsilon_min,
     epsilon_decay,
+    tau_decay,
     learning_rate,
     batch_size,
     buffer_size,
@@ -245,11 +252,12 @@ def train_agent(
 
     agent = DQNAgent(
         action_size,
-        ender_frequency,
+        target_update_freq,
         gamma,
         epsilon,
         epsilon_min,
         epsilon_decay,
+        tau_decay,
         learning_rate,
         batch_size,
         buffer_size,
@@ -539,11 +547,12 @@ def main(args):
     agent, scores = train_agent(
         run_folder=args.run_folder,
         episodes=args.train_episodes,
-        ender_frequency=args.ender_frequency,
+        target_update_freq=args.target_update_freq,
         gamma=args.gamma,
         epsilon=args.epsilon,
         epsilon_min=args.epsilon_min,
         epsilon_decay=args.epsilon_decay,
+        tau_decay=args.tau_decay,
         learning_rate=args.learning_rate,
         batch_size=args.batch_size,
         buffer_size=args.buffer_size,
@@ -571,15 +580,15 @@ def main(args):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument("--train_episodes", type=int, default=10000, help="Number of episodes to train the agent")
-    parser.add_argument("--ender_frequency", type=int, default=100, help="Frequency of updating the target network")
+    parser.add_argument("--train_episodes", type=int, default=50000, help="Number of episodes to train the agent")
+    parser.add_argument("--target_update_freq", type=int, default=50, help="Frequency of updating the target network")
     parser.add_argument("--test_episodes", type=int, default=100, help="Number of episodes to test the agent")
-    parser.add_argument("--epsilon", type=float, default=0.5, help="Epsilon-greedy exploration rate. Starting value.")
+    parser.add_argument("--epsilon", type=float, default=0.9, help="Epsilon-greedy exploration rate. Starting value.")
     parser.add_argument("--epsilon_min", type=float, default=0.01, help="Minimum epsilon-greedy exploration rate. Ending value.")
     parser.add_argument("--epsilon_decay", type=float, default=0.999, help="Epsilon-greedy exploration rate exponential decay.")
     parser.add_argument("--learning_rate", type=float, default=0.001, help="Learning rate. How much to update the weights of the network each step.")
     parser.add_argument("--batch_size", type=int, default=64, help="Batch size. How many samples to use for each training step.")
-    parser.add_argument("--buffer_size", type=int, default=5000, help="Buffer size. How many samples to store in the replay buffer.")
+    parser.add_argument("--buffer_size", type=int, default=100_000, help="Buffer size. How many samples to store in the replay buffer.")
     parser.add_argument("--gamma", type=float, default=0.99, help="Discount factor. How much to discount the future rewards.")
     parser.add_argument("--frequency_save_check_points", type=int, default=20, help="Frequency of saving the model checkpoint.")
     current_timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
@@ -608,5 +617,6 @@ if __name__ == "__main__":
     )
     ready_model_path = f"{PROJECT_ROOT_DIR}/data/cartpole_vision/chech_points/cartpole_dqn_model_checkpoint_episode_4980.pth"
     parser.add_argument("--network_start_path", type=str, default=None, help="Path to the network to start from.")
+    parser.add_argument("--tau_decay", type=float, default=3000, help="Tau decay. How much to decay the epsilon-greedy exploration rate.")
     args = parser.parse_args()
     main(args)
