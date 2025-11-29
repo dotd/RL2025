@@ -123,14 +123,15 @@ class DQN(nn.Module):
         h,  # height of the screen
         w,  # width of the screen
         outputs,  # number of outputs
+        nn_inputs,  # number of inputs
         HIDDEN_LAYER_1,  # number of hidden layer 1
         HIDDEN_LAYER_2,  # number of hidden layer 2
         HIDDEN_LAYER_3,  # number of hidden layer 3
         KERNEL_SIZE,  # kernel size
-        STRIDE,  # stride
+        STRIDE,
     ):  # stride
         super(DQN, self).__init__()
-        self.conv1 = nn.Conv2d(args.FRAMES, HIDDEN_LAYER_1, kernel_size=KERNEL_SIZE, stride=STRIDE)
+        self.conv1 = nn.Conv2d(nn_inputs, HIDDEN_LAYER_1, kernel_size=KERNEL_SIZE, stride=STRIDE)
         self.bn1 = nn.BatchNorm2d(HIDDEN_LAYER_1)
         self.conv2 = nn.Conv2d(HIDDEN_LAYER_1, HIDDEN_LAYER_2, kernel_size=KERNEL_SIZE, stride=STRIDE)
         self.bn2 = nn.BatchNorm2d(HIDDEN_LAYER_2)
@@ -242,10 +243,10 @@ print("Screen height: ", screen_height, " | Width: ", screen_width)
 n_actions = env.action_space.n
 
 policy_net = DQN(
-    screen_height, screen_width, n_actions, args.HIDDEN_LAYER_1, args.HIDDEN_LAYER_2, args.HIDDEN_LAYER_3, args.KERNEL_SIZE, args.STRIDE
+    screen_height, screen_width, n_actions, nn_inputs, args.HIDDEN_LAYER_1, args.HIDDEN_LAYER_2, args.HIDDEN_LAYER_3, args.KERNEL_SIZE, args.STRIDE
 ).to(device)
 target_net = DQN(
-    screen_height, screen_width, n_actions, args.HIDDEN_LAYER_1, args.HIDDEN_LAYER_2, args.HIDDEN_LAYER_3, args.KERNEL_SIZE, args.STRIDE
+    screen_height, screen_width, n_actions, nn_inputs, args.HIDDEN_LAYER_1, args.HIDDEN_LAYER_2, args.HIDDEN_LAYER_3, args.KERNEL_SIZE, args.STRIDE
 ).to(device)
 target_net.load_state_dict(policy_net.state_dict())
 target_net.eval()
@@ -372,10 +373,26 @@ timestamp = time.strftime("%Y%m%d_%H%M%S")
 for j in range(args.RUNS):
     mean_last = deque([0] * args.LAST_EPISODES_NUM, args.LAST_EPISODES_NUM)
     policy_net = DQN(
-        screen_height, screen_width, n_actions, args.HIDDEN_LAYER_1, args.HIDDEN_LAYER_2, args.HIDDEN_LAYER_3, args.KERNEL_SIZE, args.STRIDE
+        screen_height,
+        screen_width,
+        n_actions,
+        nn_inputs,
+        args.HIDDEN_LAYER_1,
+        args.HIDDEN_LAYER_2,
+        args.HIDDEN_LAYER_3,
+        args.KERNEL_SIZE,
+        args.STRIDE,
     ).to(device)
     target_net = DQN(
-        screen_height, screen_width, n_actions, args.HIDDEN_LAYER_1, args.HIDDEN_LAYER_2, args.HIDDEN_LAYER_3, args.KERNEL_SIZE, args.STRIDE
+        screen_height,
+        screen_width,
+        n_actions,
+        nn_inputs,
+        args.HIDDEN_LAYER_1,
+        args.HIDDEN_LAYER_2,
+        args.HIDDEN_LAYER_3,
+        args.KERNEL_SIZE,
+        args.STRIDE,
     ).to(device)
     target_net.load_state_dict(policy_net.state_dict())
     target_net.eval()
@@ -449,7 +466,7 @@ for j in range(args.RUNS):
             torch.save(policy_net.state_dict(), f"{script_dir}/save_model/policy_net_{timestamp}_{j}_{i_episode}.pt")
         if stop_training == True:
             count_final += 1
-            if count_final >= 100:
+            if count_final >= args.TARGET_UPDATE:
                 break
     torch.save(policy_net.state_dict(), f"{script_dir}/save_model/policy_net_{timestamp}_{j}_{i_episode}_final.pt")
     print("Complete")
