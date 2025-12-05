@@ -1,0 +1,184 @@
+INFO> Args:
+{
+  "train_episodes": 1000,
+  "target_update_freq": 5,
+  "epsilon_max": 0.9,
+  "epsilon_min": 0.01,
+  "learning_rate": 0.0001,
+  "batch_size": 128,
+  "buffer_size": 10000,
+  "gamma": 0.99,
+  "frequency_save_check_points": 100,
+  "run_folder": "/Users/dotan/projects/RL2025/data/cartpole_vision/run_20251204_222354/",
+  "threshold_early_stopping": 400,
+  "episodes_early_stopping": 100,
+  "num_frames": 3,
+  "optimization_type": "rmsprop",
+  "network_start_path": null,
+  "tau_decay": 2000,
+  "device": "cpu",
+  "seed": 42,
+  "frequency_print_progress": 1,
+  "episode_length": 200,
+  "resize_pixels": 40,
+  "use_cv2_for_preprocessing": false
+}
+INFO> Starting train_agent_vision()
+INFO> Setting random seeds for reproducibility to 42
+INFO> Training the agent
+DEBUG> Using selector: KqueueSelector
+DEBUG> Popen(['git', 'version'], cwd=/Users/dotan/projects/RL2025, stdin=None, shell=False, universal_newlines=False)
+DEBUG> Popen(['git', 'version'], cwd=/Users/dotan/projects/RL2025, stdin=None, shell=False, universal_newlines=False)
+DEBUG> sys.platform='darwin', git_executable='git'
+DEBUG> Popen(['git', 'rev-parse', '--show-toplevel'], cwd=/Users/dotan/projects/RL2025, stdin=None, shell=False, universal_newlines=False)
+DEBUG> Starting new HTTPS connection (1): api.wandb.ai:443
+DEBUG> https://api.wandb.ai:443 "POST /graphql HTTP/1.1" 200 None
+DEBUG> https://api.wandb.ai:443 "POST /graphql HTTP/1.1" 200 None
+DEBUG> sys.platform='darwin', git_executable='git'
+DEBUG> Popen(['git', 'cat-file', '--batch-check'], cwd=/Users/dotan/projects/RL2025, stdin=<valid stream>, shell=False, universal_newlines=False)
+INFO> Train the DQN agent on CartPole using vision input
+INFO> Action size: 2
+INFO> Starting from scratch
+INFO> Start time: 2025-12-04 22:23:55
+INFO> Training DQN Agent on CartPole-v1 (Vision-based)
+INFO> Device: mps
+INFO> --------------------------------------------------
+INFO> Updating target network at episode 0
+INFO> elapsed: 0.31 sec.|len: 8|Episode 1/1000|Avg Length: nan|eps: 0.900|steps: 0|Avg Ep: 0.31 sec.|Avg Step: 0.31 sec.|Time remaining: 312.27 sec.
+INFO> Checkpoint saved to /Users/dotan/projects/RL2025/data/cartpole_vision/run_20251204_222354//checkpoints//checkpoint_0.pth
+INFO> elapsed: 0.51 sec.|len: 31|Episode 2/1000|Avg Length: 8.00|eps: 0.900|steps: 0|Avg Ep: 0.26 sec.|Avg Step: 0.51 sec.|Time remaining: 254.53 sec.
+INFO> elapsed: 0.54 sec.|len: 17|Episode 3/1000|Avg Length: 19.50|eps: 0.900|steps: 0|Avg Ep: 0.18 sec.|Avg Step: 0.54 sec.|Time remaining: 178.73 sec.
+INFO> elapsed: 0.58 sec.|len: 18|Episode 4/1000|Avg Length: 18.67|eps: 0.900|steps: 0|Avg Ep: 0.14 sec.|Avg Step: 0.58 sec.|Time remaining: 144.05 sec.
+INFO> elapsed: 0.66 sec.|len: 40|Episode 5/1000|Avg Length: 18.50|eps: 0.900|steps: 0|Avg Ep: 0.13 sec.|Avg Step: 0.66 sec.|Time remaining: 130.43 sec.
+INFO> Updating target network at episode 5
+INFO> elapsed: 0.98 sec.|len: 9|Episode 6/1000|Avg Length: 22.80|eps: 0.899|steps: 2|Avg Ep: 0.16 sec.|Avg Step: 0.33 sec.|Time remaining: 162.40 sec.
+INFO> elapsed: 1.52 sec.|len: 35|Episode 7/1000|Avg Length: 20.50|eps: 0.883|steps: 38|Avg Ep: 0.22 sec.|Avg Step: 0.04 sec.|Time remaining: 215.14 sec.
+INFO> elapsed: 1.69 sec.|len: 11|Episode 8/1000|Avg Length: 22.57|eps: 0.878|steps: 50|Avg Ep: 0.21 sec.|Avg Step: 0.03 sec.|Time remaining: 209.43 sec.
+INFO> elapsed: 1.92 sec.|len: 15|Episode 9/1000|Avg Length: 21.12|eps: 0.871|steps: 66|Avg Ep: 0.21 sec.|Avg Step: 0.03 sec.|Time remaining: 211.57 sec.
+INFO> elapsed: 2.11 sec.|len: 12|Episode 10/1000|Avg Length: 20.44|eps: 0.866|steps: 79|Avg Ep: 0.21 sec.|Avg Step: 0.03 sec.|Time remaining: 208.88 sec.
+INFO> Updating target network at episode 10
+INFO> elapsed: 2.34 sec.|len: 15|Episode 11/1000|Avg Length: 19.60|eps: 0.859|steps: 95|Avg Ep: 0.21 sec.|Avg Step: 0.02 sec.|Time remaining: 210.78 sec.
+INFO> elapsed: 2.62 sec.|len: 17|Episode 12/1000|Avg Length: 19.18|eps: 0.851|steps: 113|Avg Ep: 0.22 sec.|Avg Step: 0.02 sec.|Time remaining: 215.39 sec.
+INFO> elapsed: 2.84 sec.|len: 14|Episode 13/1000|Avg Length: 19.00|eps: 0.845|steps: 128|Avg Ep: 0.22 sec.|Avg Step: 0.02 sec.|Time remaining: 215.62 sec.
+INFO> elapsed: 3.08 sec.|len: 15|Episode 14/1000|Avg Length: 18.62|eps: 0.838|steps: 144|Avg Ep: 0.22 sec.|Avg Step: 0.02 sec.|Time remaining: 216.67 sec.
+INFO> elapsed: 3.27 sec.|len: 12|Episode 15/1000|Avg Length: 18.36|eps: 0.833|steps: 157|Avg Ep: 0.22 sec.|Avg Step: 0.02 sec.|Time remaining: 214.88 sec.
+INFO> Updating target network at episode 15
+INFO> elapsed: 3.39 sec.|len: 7|Episode 16/1000|Avg Length: 17.93|eps: 0.830|steps: 165|Avg Ep: 0.21 sec.|Avg Step: 0.02 sec.|Time remaining: 208.53 sec.
+INFO> elapsed: 3.62 sec.|len: 14|Episode 17/1000|Avg Length: 17.25|eps: 0.823|steps: 180|Avg Ep: 0.21 sec.|Avg Step: 0.02 sec.|Time remaining: 209.34 sec.
+INFO> elapsed: 3.86 sec.|len: 15|Episode 18/1000|Avg Length: 17.06|eps: 0.817|steps: 196|Avg Ep: 0.21 sec.|Avg Step: 0.02 sec.|Time remaining: 210.46 sec.
+INFO> elapsed: 4.07 sec.|len: 13|Episode 19/1000|Avg Length: 16.94|eps: 0.811|steps: 210|Avg Ep: 0.21 sec.|Avg Step: 0.02 sec.|Time remaining: 210.07 sec.
+INFO> elapsed: 4.27 sec.|len: 12|Episode 20/1000|Avg Length: 16.74|eps: 0.806|steps: 223|Avg Ep: 0.21 sec.|Avg Step: 0.02 sec.|Time remaining: 209.03 sec.
+INFO> Updating target network at episode 20
+INFO> elapsed: 4.68 sec.|len: 27|Episode 21/1000|Avg Length: 16.50|eps: 0.795|steps: 251|Avg Ep: 0.22 sec.|Avg Step: 0.02 sec.|Time remaining: 218.31 sec.
+INFO> elapsed: 4.86 sec.|len: 11|Episode 22/1000|Avg Length: 17.00|eps: 0.790|steps: 263|Avg Ep: 0.22 sec.|Avg Step: 0.02 sec.|Time remaining: 216.27 sec.
+INFO> elapsed: 5.01 sec.|len: 9|Episode 23/1000|Avg Length: 16.73|eps: 0.786|steps: 273|Avg Ep: 0.22 sec.|Avg Step: 0.02 sec.|Time remaining: 212.87 sec.
+INFO> elapsed: 5.29 sec.|len: 18|Episode 24/1000|Avg Length: 16.39|eps: 0.779|steps: 292|Avg Ep: 0.22 sec.|Avg Step: 0.02 sec.|Time remaining: 215.31 sec.
+INFO> elapsed: 5.60 sec.|len: 19|Episode 25/1000|Avg Length: 16.46|eps: 0.771|steps: 312|Avg Ep: 0.22 sec.|Avg Step: 0.02 sec.|Time remaining: 218.21 sec.
+INFO> Updating target network at episode 25
+INFO> elapsed: 5.79 sec.|len: 12|Episode 26/1000|Avg Length: 16.56|eps: 0.767|steps: 325|Avg Ep: 0.22 sec.|Avg Step: 0.02 sec.|Time remaining: 216.78 sec.
+INFO> elapsed: 5.96 sec.|len: 11|Episode 27/1000|Avg Length: 16.38|eps: 0.762|steps: 337|Avg Ep: 0.22 sec.|Avg Step: 0.02 sec.|Time remaining: 214.92 sec.
+INFO> elapsed: 6.50 sec.|len: 36|Episode 28/1000|Avg Length: 16.19|eps: 0.748|steps: 374|Avg Ep: 0.23 sec.|Avg Step: 0.02 sec.|Time remaining: 225.79 sec.
+INFO> elapsed: 6.65 sec.|len: 9|Episode 29/1000|Avg Length: 16.89|eps: 0.745|steps: 384|Avg Ep: 0.23 sec.|Avg Step: 0.02 sec.|Time remaining: 222.74 sec.
+INFO> elapsed: 6.94 sec.|len: 19|Episode 30/1000|Avg Length: 16.62|eps: 0.737|steps: 404|Avg Ep: 0.23 sec.|Avg Step: 0.02 sec.|Time remaining: 224.39 sec.
+INFO> Updating target network at episode 30
+INFO> elapsed: 7.15 sec.|len: 13|Episode 31/1000|Avg Length: 16.70|eps: 0.732|steps: 418|Avg Ep: 0.23 sec.|Avg Step: 0.02 sec.|Time remaining: 223.41 sec.
+INFO> elapsed: 7.60 sec.|len: 30|Episode 32/1000|Avg Length: 16.58|eps: 0.721|steps: 449|Avg Ep: 0.24 sec.|Avg Step: 0.02 sec.|Time remaining: 229.83 sec.
+INFO> elapsed: 7.99 sec.|len: 26|Episode 33/1000|Avg Length: 17.00|eps: 0.712|steps: 476|Avg Ep: 0.24 sec.|Avg Step: 0.02 sec.|Time remaining: 234.01 sec.
+INFO> elapsed: 8.18 sec.|len: 12|Episode 34/1000|Avg Length: 17.27|eps: 0.707|steps: 489|Avg Ep: 0.24 sec.|Avg Step: 0.02 sec.|Time remaining: 232.29 sec.
+INFO> elapsed: 8.50 sec.|len: 21|Episode 35/1000|Avg Length: 17.12|eps: 0.699|steps: 511|Avg Ep: 0.24 sec.|Avg Step: 0.02 sec.|Time remaining: 234.46 sec.
+INFO> Updating target network at episode 35
+INFO> elapsed: 8.65 sec.|len: 9|Episode 36/1000|Avg Length: 17.23|eps: 0.696|steps: 521|Avg Ep: 0.24 sec.|Avg Step: 0.02 sec.|Time remaining: 231.72 sec.
+INFO> elapsed: 8.85 sec.|len: 12|Episode 37/1000|Avg Length: 17.00|eps: 0.691|steps: 534|Avg Ep: 0.24 sec.|Avg Step: 0.02 sec.|Time remaining: 230.39 sec.
+INFO> elapsed: 9.16 sec.|len: 20|Episode 38/1000|Avg Length: 16.86|eps: 0.684|steps: 555|Avg Ep: 0.24 sec.|Avg Step: 0.02 sec.|Time remaining: 231.98 sec.
+INFO> elapsed: 9.42 sec.|len: 16|Episode 39/1000|Avg Length: 16.95|eps: 0.679|steps: 572|Avg Ep: 0.24 sec.|Avg Step: 0.02 sec.|Time remaining: 232.01 sec.
+INFO> elapsed: 9.60 sec.|len: 11|Episode 40/1000|Avg Length: 16.92|eps: 0.675|steps: 584|Avg Ep: 0.24 sec.|Avg Step: 0.02 sec.|Time remaining: 230.31 sec.
+INFO> Updating target network at episode 40
+INFO> elapsed: 9.74 sec.|len: 9|Episode 41/1000|Avg Length: 16.77|eps: 0.671|steps: 594|Avg Ep: 0.24 sec.|Avg Step: 0.02 sec.|Time remaining: 227.89 sec.
+INFO> elapsed: 9.86 sec.|len: 7|Episode 42/1000|Avg Length: 16.59|eps: 0.669|steps: 602|Avg Ep: 0.23 sec.|Avg Step: 0.02 sec.|Time remaining: 225.01 sec.
+INFO> elapsed: 10.01 sec.|len: 9|Episode 43/1000|Avg Length: 16.36|eps: 0.665|steps: 612|Avg Ep: 0.23 sec.|Avg Step: 0.02 sec.|Time remaining: 222.83 sec.
+INFO> elapsed: 10.30 sec.|len: 19|Episode 44/1000|Avg Length: 16.19|eps: 0.659|steps: 632|Avg Ep: 0.23 sec.|Avg Step: 0.02 sec.|Time remaining: 223.84 sec.
+INFO> elapsed: 10.61 sec.|len: 19|Episode 45/1000|Avg Length: 16.25|eps: 0.652|steps: 652|Avg Ep: 0.24 sec.|Avg Step: 0.02 sec.|Time remaining: 225.11 sec.
+INFO> Updating target network at episode 45
+INFO> elapsed: 10.77 sec.|len: 10|Episode 46/1000|Avg Length: 16.31|eps: 0.649|steps: 663|Avg Ep: 0.23 sec.|Avg Step: 0.02 sec.|Time remaining: 223.44 sec.
+INFO> elapsed: 10.97 sec.|len: 12|Episode 47/1000|Avg Length: 16.17|eps: 0.645|steps: 676|Avg Ep: 0.23 sec.|Avg Step: 0.02 sec.|Time remaining: 222.42 sec.
+INFO> elapsed: 11.20 sec.|len: 15|Episode 48/1000|Avg Length: 16.09|eps: 0.640|steps: 692|Avg Ep: 0.23 sec.|Avg Step: 0.02 sec.|Time remaining: 222.21 sec.
+INFO> elapsed: 11.41 sec.|len: 13|Episode 49/1000|Avg Length: 16.06|eps: 0.635|steps: 706|Avg Ep: 0.23 sec.|Avg Step: 0.02 sec.|Time remaining: 221.42 sec.
+INFO> elapsed: 11.69 sec.|len: 18|Episode 50/1000|Avg Length: 16.00|eps: 0.629|steps: 725|Avg Ep: 0.23 sec.|Avg Step: 0.02 sec.|Time remaining: 222.10 sec.
+INFO> Updating target network at episode 50
+INFO> elapsed: 12.19 sec.|len: 33|Episode 51/1000|Avg Length: 16.04|eps: 0.619|steps: 759|Avg Ep: 0.24 sec.|Avg Step: 0.02 sec.|Time remaining: 226.90 sec.
+INFO> elapsed: 12.59 sec.|len: 26|Episode 52/1000|Avg Length: 16.37|eps: 0.611|steps: 786|Avg Ep: 0.24 sec.|Avg Step: 0.02 sec.|Time remaining: 229.59 sec.
+INFO> elapsed: 13.34 sec.|len: 48|Episode 53/1000|Avg Length: 16.56|eps: 0.596|steps: 835|Avg Ep: 0.25 sec.|Avg Step: 0.02 sec.|Time remaining: 238.33 sec.
+INFO> elapsed: 13.52 sec.|len: 11|Episode 54/1000|Avg Length: 17.15|eps: 0.593|steps: 847|Avg Ep: 0.25 sec.|Avg Step: 0.02 sec.|Time remaining: 236.84 sec.
+INFO> elapsed: 13.96 sec.|len: 29|Episode 55/1000|Avg Length: 17.04|eps: 0.584|steps: 877|Avg Ep: 0.25 sec.|Avg Step: 0.02 sec.|Time remaining: 239.90 sec.
+INFO> Updating target network at episode 55
+INFO> elapsed: 14.18 sec.|len: 13|Episode 56/1000|Avg Length: 17.25|eps: 0.580|steps: 891|Avg Ep: 0.25 sec.|Avg Step: 0.02 sec.|Time remaining: 239.01 sec.
+INFO> elapsed: 14.40 sec.|len: 13|Episode 57/1000|Avg Length: 17.18|eps: 0.576|steps: 905|Avg Ep: 0.25 sec.|Avg Step: 0.02 sec.|Time remaining: 238.18 sec.
+INFO> elapsed: 14.53 sec.|len: 8|Episode 58/1000|Avg Length: 17.11|eps: 0.574|steps: 914|Avg Ep: 0.25 sec.|Avg Step: 0.02 sec.|Time remaining: 236.02 sec.
+INFO> elapsed: 14.75 sec.|len: 13|Episode 59/1000|Avg Length: 16.95|eps: 0.570|steps: 928|Avg Ep: 0.25 sec.|Avg Step: 0.02 sec.|Time remaining: 235.18 sec.
+INFO> elapsed: 15.15 sec.|len: 26|Episode 60/1000|Avg Length: 16.88|eps: 0.562|steps: 955|Avg Ep: 0.25 sec.|Avg Step: 0.02 sec.|Time remaining: 237.32 sec.
+INFO> Updating target network at episode 60
+INFO> elapsed: 15.36 sec.|len: 13|Episode 61/1000|Avg Length: 17.03|eps: 0.558|steps: 969|Avg Ep: 0.25 sec.|Avg Step: 0.02 sec.|Time remaining: 236.39 sec.
+INFO> elapsed: 15.58 sec.|len: 14|Episode 62/1000|Avg Length: 16.97|eps: 0.554|steps: 984|Avg Ep: 0.25 sec.|Avg Step: 0.02 sec.|Time remaining: 235.76 sec.
+INFO> elapsed: 15.78 sec.|len: 12|Episode 63/1000|Avg Length: 16.92|eps: 0.551|steps: 997|Avg Ep: 0.25 sec.|Avg Step: 0.02 sec.|Time remaining: 234.64 sec.
+INFO> elapsed: 15.97 sec.|len: 12|Episode 64/1000|Avg Length: 16.84|eps: 0.547|steps: 1010|Avg Ep: 0.25 sec.|Avg Step: 0.02 sec.|Time remaining: 233.52 sec.
+INFO> elapsed: 16.27 sec.|len: 19|Episode 65/1000|Avg Length: 16.77|eps: 0.542|steps: 1030|Avg Ep: 0.25 sec.|Avg Step: 0.02 sec.|Time remaining: 233.98 sec.
+INFO> Updating target network at episode 65
+INFO> elapsed: 16.45 sec.|len: 11|Episode 66/1000|Avg Length: 16.80|eps: 0.539|steps: 1042|Avg Ep: 0.25 sec.|Avg Step: 0.02 sec.|Time remaining: 232.84 sec.
+INFO> elapsed: 16.65 sec.|len: 12|Episode 67/1000|Avg Length: 16.71|eps: 0.535|steps: 1055|Avg Ep: 0.25 sec.|Avg Step: 0.02 sec.|Time remaining: 231.90 sec.
+INFO> elapsed: 17.08 sec.|len: 28|Episode 68/1000|Avg Length: 16.64|eps: 0.528|steps: 1084|Avg Ep: 0.25 sec.|Avg Step: 0.02 sec.|Time remaining: 234.11 sec.
+INFO> elapsed: 17.25 sec.|len: 10|Episode 69/1000|Avg Length: 16.81|eps: 0.525|steps: 1095|Avg Ep: 0.25 sec.|Avg Step: 0.02 sec.|Time remaining: 232.70 sec.
+INFO> elapsed: 17.59 sec.|len: 22|Episode 70/1000|Avg Length: 16.71|eps: 0.519|steps: 1118|Avg Ep: 0.25 sec.|Avg Step: 0.02 sec.|Time remaining: 233.69 sec.
+INFO> Updating target network at episode 70
+INFO> elapsed: 17.87 sec.|len: 18|Episode 71/1000|Avg Length: 16.79|eps: 0.514|steps: 1137|Avg Ep: 0.25 sec.|Avg Step: 0.02 sec.|Time remaining: 233.85 sec.
+INFO> elapsed: 18.08 sec.|len: 13|Episode 72/1000|Avg Length: 16.80|eps: 0.511|steps: 1151|Avg Ep: 0.25 sec.|Avg Step: 0.02 sec.|Time remaining: 233.03 sec.
+INFO> elapsed: 18.49 sec.|len: 26|Episode 73/1000|Avg Length: 16.75|eps: 0.504|steps: 1178|Avg Ep: 0.25 sec.|Avg Step: 0.02 sec.|Time remaining: 234.76 sec.
+INFO> elapsed: 18.68 sec.|len: 12|Episode 74/1000|Avg Length: 16.88|eps: 0.501|steps: 1191|Avg Ep: 0.25 sec.|Avg Step: 0.02 sec.|Time remaining: 233.73 sec.
+INFO> elapsed: 18.89 sec.|len: 13|Episode 75/1000|Avg Length: 16.81|eps: 0.497|steps: 1205|Avg Ep: 0.25 sec.|Avg Step: 0.02 sec.|Time remaining: 232.94 sec.
+INFO> Updating target network at episode 75
+INFO> elapsed: 19.07 sec.|len: 11|Episode 76/1000|Avg Length: 16.76|eps: 0.494|steps: 1217|Avg Ep: 0.25 sec.|Avg Step: 0.02 sec.|Time remaining: 231.85 sec.
+INFO> elapsed: 19.26 sec.|len: 12|Episode 77/1000|Avg Length: 16.68|eps: 0.491|steps: 1230|Avg Ep: 0.25 sec.|Avg Step: 0.02 sec.|Time remaining: 230.91 sec.
+INFO> elapsed: 19.51 sec.|len: 16|Episode 78/1000|Avg Length: 16.62|eps: 0.487|steps: 1247|Avg Ep: 0.25 sec.|Avg Step: 0.02 sec.|Time remaining: 230.64 sec.
+INFO> elapsed: 19.76 sec.|len: 16|Episode 79/1000|Avg Length: 16.62|eps: 0.483|steps: 1264|Avg Ep: 0.25 sec.|Avg Step: 0.02 sec.|Time remaining: 230.40 sec.
+INFO> elapsed: 20.09 sec.|len: 21|Episode 80/1000|Avg Length: 16.61|eps: 0.478|steps: 1286|Avg Ep: 0.25 sec.|Avg Step: 0.02 sec.|Time remaining: 231.09 sec.
+INFO> Updating target network at episode 80
+INFO> elapsed: 20.33 sec.|len: 15|Episode 81/1000|Avg Length: 16.66|eps: 0.474|steps: 1302|Avg Ep: 0.25 sec.|Avg Step: 0.02 sec.|Time remaining: 230.70 sec.
+INFO> elapsed: 20.60 sec.|len: 17|Episode 82/1000|Avg Length: 16.64|eps: 0.470|steps: 1320|Avg Ep: 0.25 sec.|Avg Step: 0.02 sec.|Time remaining: 230.63 sec.
+INFO> elapsed: 20.91 sec.|len: 20|Episode 83/1000|Avg Length: 16.65|eps: 0.465|steps: 1341|Avg Ep: 0.25 sec.|Avg Step: 0.02 sec.|Time remaining: 231.04 sec.
+INFO> elapsed: 21.16 sec.|len: 15|Episode 84/1000|Avg Length: 16.69|eps: 0.462|steps: 1357|Avg Ep: 0.25 sec.|Avg Step: 0.02 sec.|Time remaining: 230.75 sec.
+INFO> elapsed: 21.33 sec.|len: 10|Episode 85/1000|Avg Length: 16.67|eps: 0.459|steps: 1368|Avg Ep: 0.25 sec.|Avg Step: 0.02 sec.|Time remaining: 229.64 sec.
+INFO> Updating target network at episode 85
+INFO> elapsed: 21.57 sec.|len: 15|Episode 86/1000|Avg Length: 16.59|eps: 0.456|steps: 1384|Avg Ep: 0.25 sec.|Avg Step: 0.02 sec.|Time remaining: 229.26 sec.
+INFO> elapsed: 21.81 sec.|len: 15|Episode 87/1000|Avg Length: 16.57|eps: 0.452|steps: 1400|Avg Ep: 0.25 sec.|Avg Step: 0.02 sec.|Time remaining: 228.91 sec.
+INFO> elapsed: 21.99 sec.|len: 11|Episode 88/1000|Avg Length: 16.55|eps: 0.449|steps: 1412|Avg Ep: 0.25 sec.|Avg Step: 0.02 sec.|Time remaining: 227.93 sec.
+INFO> elapsed: 22.25 sec.|len: 16|Episode 89/1000|Avg Length: 16.49|eps: 0.446|steps: 1429|Avg Ep: 0.25 sec.|Avg Step: 0.02 sec.|Time remaining: 227.72 sec.
+INFO> elapsed: 22.43 sec.|len: 11|Episode 90/1000|Avg Length: 16.48|eps: 0.443|steps: 1441|Avg Ep: 0.25 sec.|Avg Step: 0.02 sec.|Time remaining: 226.78 sec.
+INFO> Updating target network at episode 90
+INFO> elapsed: 22.69 sec.|len: 16|Episode 91/1000|Avg Length: 16.42|eps: 0.439|steps: 1458|Avg Ep: 0.25 sec.|Avg Step: 0.02 sec.|Time remaining: 226.60 sec.
+INFO> elapsed: 23.25 sec.|len: 36|Episode 92/1000|Avg Length: 16.42|eps: 0.431|steps: 1495|Avg Ep: 0.25 sec.|Avg Step: 0.02 sec.|Time remaining: 229.49 sec.
+INFO> elapsed: 23.65 sec.|len: 24|Episode 93/1000|Avg Length: 16.63|eps: 0.426|steps: 1520|Avg Ep: 0.25 sec.|Avg Step: 0.02 sec.|Time remaining: 230.64 sec.
+INFO> elapsed: 23.82 sec.|len: 10|Episode 94/1000|Avg Length: 16.71|eps: 0.424|steps: 1531|Avg Ep: 0.25 sec.|Avg Step: 0.02 sec.|Time remaining: 229.58 sec.
+INFO> elapsed: 23.99 sec.|len: 10|Episode 95/1000|Avg Length: 16.64|eps: 0.422|steps: 1542|Avg Ep: 0.25 sec.|Avg Step: 0.02 sec.|Time remaining: 228.55 sec.
+INFO> Updating target network at episode 95
+INFO> elapsed: 24.13 sec.|len: 8|Episode 96/1000|Avg Length: 16.57|eps: 0.420|steps: 1551|Avg Ep: 0.25 sec.|Avg Step: 0.02 sec.|Time remaining: 227.24 sec.
+INFO> elapsed: 24.27 sec.|len: 8|Episode 97/1000|Avg Length: 16.48|eps: 0.418|steps: 1560|Avg Ep: 0.25 sec.|Avg Step: 0.02 sec.|Time remaining: 225.95 sec.
+INFO> elapsed: 24.46 sec.|len: 11|Episode 98/1000|Avg Length: 16.39|eps: 0.416|steps: 1572|Avg Ep: 0.25 sec.|Avg Step: 0.02 sec.|Time remaining: 225.11 sec.
+INFO> elapsed: 24.61 sec.|len: 9|Episode 99/1000|Avg Length: 16.34|eps: 0.414|steps: 1582|Avg Ep: 0.25 sec.|Avg Step: 0.02 sec.|Time remaining: 224.01 sec.
+INFO> elapsed: 24.81 sec.|len: 11|Episode 100/1000|Avg Length: 16.26|eps: 0.411|steps: 1594|Avg Ep: 0.25 sec.|Avg Step: 0.02 sec.|Time remaining: 223.25 sec.
+INFO> Updating target network at episode 100
+INFO> elapsed: 25.35 sec.|len: 34|Episode 101/1000|Avg Length: 16.29|eps: 0.404|steps: 1629|Avg Ep: 0.25 sec.|Avg Step: 0.02 sec.|Time remaining: 225.67 sec.
+INFO> Checkpoint saved to /Users/dotan/projects/RL2025/data/cartpole_vision/run_20251204_222354//checkpoints//checkpoint_100.pth
+INFO> elapsed: 25.78 sec.|len: 26|Episode 102/1000|Avg Length: 16.32|eps: 0.399|steps: 1656|Avg Ep: 0.25 sec.|Avg Step: 0.02 sec.|Time remaining: 226.97 sec.
+INFO> elapsed: 26.12 sec.|len: 21|Episode 103/1000|Avg Length: 16.41|eps: 0.395|steps: 1678|Avg Ep: 0.25 sec.|Avg Step: 0.02 sec.|Time remaining: 227.48 sec.
+INFO> elapsed: 26.33 sec.|len: 12|Episode 104/1000|Avg Length: 16.44|eps: 0.392|steps: 1691|Avg Ep: 0.25 sec.|Avg Step: 0.02 sec.|Time remaining: 226.81 sec.
+INFO> elapsed: 26.57 sec.|len: 15|Episode 105/1000|Avg Length: 16.16|eps: 0.389|steps: 1707|Avg Ep: 0.25 sec.|Avg Step: 0.02 sec.|Time remaining: 226.44 sec.
+INFO> Updating target network at episode 105
+INFO> elapsed: 27.32 sec.|len: 49|Episode 106/1000|Avg Length: 16.22|eps: 0.380|steps: 1757|Avg Ep: 0.26 sec.|Avg Step: 0.02 sec.|Time remaining: 230.39 sec.
+INFO> elapsed: 27.50 sec.|len: 11|Episode 107/1000|Avg Length: 16.36|eps: 0.377|steps: 1769|Avg Ep: 0.26 sec.|Avg Step: 0.02 sec.|Time remaining: 229.54 sec.
+INFO> elapsed: 27.67 sec.|len: 10|Episode 108/1000|Avg Length: 16.36|eps: 0.375|steps: 1780|Avg Ep: 0.26 sec.|Avg Step: 0.02 sec.|Time remaining: 228.54 sec.
+INFO> elapsed: 28.23 sec.|len: 36|Episode 109/1000|Avg Length: 16.31|eps: 0.369|steps: 1817|Avg Ep: 0.26 sec.|Avg Step: 0.02 sec.|Time remaining: 230.76 sec.
+INFO> elapsed: 28.51 sec.|len: 17|Episode 110/1000|Avg Length: 16.56|eps: 0.366|steps: 1835|Avg Ep: 0.26 sec.|Avg Step: 0.02 sec.|Time remaining: 230.65 sec.
+INFO> Updating target network at episode 110
+INFO> elapsed: 29.45 sec.|len: 61|Episode 111/1000|Avg Length: 16.58|eps: 0.355|steps: 1897|Avg Ep: 0.27 sec.|Avg Step: 0.02 sec.|Time remaining: 235.85 sec.
+INFO> elapsed: 29.68 sec.|len: 14|Episode 112/1000|Avg Length: 17.02|eps: 0.352|steps: 1912|Avg Ep: 0.26 sec.|Avg Step: 0.02 sec.|Time remaining: 235.30 sec.
+INFO> elapsed: 30.89 sec.|len: 78|Episode 113/1000|Avg Length: 17.02|eps: 0.339|steps: 1991|Avg Ep: 0.27 sec.|Avg Step: 0.02 sec.|Time remaining: 242.48 sec.
+INFO> elapsed: 31.36 sec.|len: 29|Episode 114/1000|Avg Length: 17.66|eps: 0.334|steps: 2021|Avg Ep: 0.28 sec.|Avg Step: 0.02 sec.|Time remaining: 243.76 sec.

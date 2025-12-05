@@ -1,0 +1,30 @@
+INFO> Args: Namespace(train_episodes=1000, target_update_freq=5, epsilon_max=0.9, epsilon_min=0.01, learning_rate=0.001, batch_size=128, buffer_size=10000, gamma=0.99, frequency_save_check_points=100, run_folder='/Users/dotan/projects/RL2025/data/cartpole_vision/run_20251204_135120/', threshold_early_stopping=400, episodes_early_stopping=100, num_frames=2, optimization_type='rmsprop', network_start_path=None, tau_decay=2000, device='cpu', seed=42, frequency_print_progress=4, episode_length=200, resize_pixels=80)
+INFO> Starting train_agent_vision()
+INFO> Setting random seeds for reproducibility to 42
+INFO> Training the agent
+DEBUG> Using selector: KqueueSelector
+DEBUG> Popen(['git', 'version'], cwd=/Users/dotan/projects/RL2025, stdin=None, shell=False, universal_newlines=False)
+DEBUG> Popen(['git', 'version'], cwd=/Users/dotan/projects/RL2025, stdin=None, shell=False, universal_newlines=False)
+DEBUG> sys.platform='darwin', git_executable='git'
+DEBUG> Popen(['git', 'rev-parse', '--show-toplevel'], cwd=/Users/dotan/projects/RL2025, stdin=None, shell=False, universal_newlines=False)
+DEBUG> Starting new HTTPS connection (1): api.wandb.ai:443
+DEBUG> https://api.wandb.ai:443 "POST /graphql HTTP/1.1" 200 None
+DEBUG> https://api.wandb.ai:443 "POST /graphql HTTP/1.1" 200 None
+DEBUG> sys.platform='darwin', git_executable='git'
+DEBUG> Popen(['git', 'cat-file', '--batch-check'], cwd=/Users/dotan/projects/RL2025, stdin=<valid stream>, shell=False, universal_newlines=False)
+INFO> Train the DQN agent on CartPole using vision input
+INFO> Action size: 2
+INFO> Starting from scratch
+INFO> Start time: 2025-12-04 13:51:22
+INFO> Training DQN Agent on CartPole-v1 (Vision-based)
+INFO> Device: mps
+INFO> --------------------------------------------------
+INFO> Updating target network at episode 0
+INFO> Checkpoint saved to /Users/dotan/projects/RL2025/data/cartpole_vision/run_20251204_135120//checkpoints//checkpoint_0.pth
+INFO> elapsed: 0.56 sec.|Episode 4/1000|Score: 57|Avg Score: 28.75|eps: 0.900|steps: 0|Avg Ep: 0.14 sec.|Avg Step: 0.56 sec.|Time remaining: 140.18 sec.
+INFO> Updating target network at episode 5
+INFO> elapsed: 4.56 sec.|Episode 8/1000|Score: 24|Avg Score: 26.12|eps: 0.864|steps: 82|Avg Ep: 0.57 sec.|Avg Step: 0.05 sec.|Time remaining: 565.77 sec.
+INFO> Updating target network at episode 10
+INFO> elapsed: 6.94 sec.|Episode 12/1000|Score: 10|Avg Score: 21.58|eps: 0.843|steps: 132|Avg Ep: 0.58 sec.|Avg Step: 0.05 sec.|Time remaining: 571.28 sec.
+INFO> Updating target network at episode 15
+INFO> elapsed: 11.40 sec.|Episode 16/1000|Score: 17|Avg Score: 22.19|eps: 0.804|steps: 228|Avg Ep: 0.71 sec.|Avg Step: 0.05 sec.|Time remaining: 700.79 sec.

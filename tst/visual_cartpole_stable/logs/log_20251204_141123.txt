@@ -1,0 +1,45 @@
+INFO> Args:
+{
+  "train_episodes": 1000,
+  "target_update_freq": 5,
+  "epsilon_max": 0.9,
+  "epsilon_min": 0.01,
+  "learning_rate": 0.0001,
+  "batch_size": 128,
+  "buffer_size": 10000,
+  "gamma": 0.99,
+  "frequency_save_check_points": 100,
+  "run_folder": "/Users/dotan/projects/RL2025/data/cartpole_vision/run_20251204_141123/",
+  "threshold_early_stopping": 400,
+  "episodes_early_stopping": 100,
+  "num_frames": 2,
+  "optimization_type": "rmsprop",
+  "network_start_path": null,
+  "tau_decay": 2000,
+  "device": "cpu",
+  "seed": 42,
+  "frequency_print_progress": 4,
+  "episode_length": 200,
+  "resize_pixels": 80,
+  "use_cv2_for_preprocessing": true
+}
+INFO> Starting train_agent_vision()
+INFO> Setting random seeds for reproducibility to 42
+INFO> Training the agent
+DEBUG> Using selector: KqueueSelector
+DEBUG> Popen(['git', 'version'], cwd=/Users/dotan/projects/RL2025, stdin=None, shell=False, universal_newlines=False)
+DEBUG> Popen(['git', 'version'], cwd=/Users/dotan/projects/RL2025, stdin=None, shell=False, universal_newlines=False)
+DEBUG> sys.platform='darwin', git_executable='git'
+DEBUG> Popen(['git', 'rev-parse', '--show-toplevel'], cwd=/Users/dotan/projects/RL2025, stdin=None, shell=False, universal_newlines=False)
+DEBUG> Starting new HTTPS connection (1): api.wandb.ai:443
+DEBUG> https://api.wandb.ai:443 "POST /graphql HTTP/1.1" 200 None
+DEBUG> https://api.wandb.ai:443 "POST /graphql HTTP/1.1" 200 None
+DEBUG> sys.platform='darwin', git_executable='git'
+DEBUG> Popen(['git', 'cat-file', '--batch-check'], cwd=/Users/dotan/projects/RL2025, stdin=<valid stream>, shell=False, universal_newlines=False)
+INFO> Train the DQN agent on CartPole using vision input
+INFO> Action size: 2
+INFO> Starting from scratch
+INFO> Start time: 2025-12-04 14:11:25
+INFO> Training DQN Agent on CartPole-v1 (Vision-based)
+INFO> Device: mps
+INFO> --------------------------------------------------

@@ -1,0 +1,70 @@
+INFO> Args:
+{
+  "train_episodes": 1000,
+  "target_update_freq": 5,
+  "epsilon_max": 0.9,
+  "epsilon_min": 0.01,
+  "learning_rate": 0.0001,
+  "batch_size": 128,
+  "buffer_size": 10000,
+  "gamma": 0.99,
+  "frequency_save_check_points": 100,
+  "run_folder": "/Users/dotan/projects/RL2025/data/cartpole_vision/run_20251204_222002/",
+  "threshold_early_stopping": 400,
+  "episodes_early_stopping": 100,
+  "num_frames": 2,
+  "optimization_type": "rmsprop",
+  "network_start_path": null,
+  "tau_decay": 2000,
+  "device": "cpu",
+  "seed": 42,
+  "frequency_print_progress": 1,
+  "episode_length": 200,
+  "resize_pixels": 160,
+  "use_cv2_for_preprocessing": false
+}
+INFO> Starting train_agent_vision()
+INFO> Setting random seeds for reproducibility to 42
+INFO> Training the agent
+DEBUG> Using selector: KqueueSelector
+DEBUG> Popen(['git', 'version'], cwd=/Users/dotan/projects/RL2025, stdin=None, shell=False, universal_newlines=False)
+DEBUG> Popen(['git', 'version'], cwd=/Users/dotan/projects/RL2025, stdin=None, shell=False, universal_newlines=False)
+DEBUG> sys.platform='darwin', git_executable='git'
+DEBUG> Popen(['git', 'rev-parse', '--show-toplevel'], cwd=/Users/dotan/projects/RL2025, stdin=None, shell=False, universal_newlines=False)
+DEBUG> Starting new HTTPS connection (1): api.wandb.ai:443
+DEBUG> https://api.wandb.ai:443 "POST /graphql HTTP/1.1" 200 None
+DEBUG> https://api.wandb.ai:443 "POST /graphql HTTP/1.1" 200 None
+DEBUG> sys.platform='darwin', git_executable='git'
+DEBUG> Popen(['git', 'cat-file', '--batch-check'], cwd=/Users/dotan/projects/RL2025, stdin=<valid stream>, shell=False, universal_newlines=False)
+INFO> Train the DQN agent on CartPole using vision input
+INFO> Action size: 2
+INFO> Starting from scratch
+INFO> Start time: 2025-12-04 22:20:03
+INFO> Training DQN Agent on CartPole-v1 (Vision-based)
+INFO> Device: mps
+INFO> --------------------------------------------------
+INFO> Updating target network at episode 0
+INFO> elapsed: 0.35 sec.|len: 9|Episode 1/1000|Avg Length: nan|eps: 0.900|steps: 0|Avg Ep: 0.35 sec.|Avg Step: 0.35 sec.|Time remaining: 346.37 sec.
+INFO> Checkpoint saved to /Users/dotan/projects/RL2025/data/cartpole_vision/run_20251204_222002//checkpoints//checkpoint_0.pth
+INFO> elapsed: 1.06 sec.|len: 29|Episode 2/1000|Avg Length: 9.00|eps: 0.900|steps: 0|Avg Ep: 0.53 sec.|Avg Step: 1.06 sec.|Time remaining: 530.14 sec.
+INFO> elapsed: 1.10 sec.|len: 16|Episode 3/1000|Avg Length: 19.00|eps: 0.900|steps: 0|Avg Ep: 0.37 sec.|Avg Step: 1.10 sec.|Time remaining: 365.06 sec.
+INFO> elapsed: 1.15 sec.|len: 18|Episode 4/1000|Avg Length: 18.00|eps: 0.900|steps: 0|Avg Ep: 0.29 sec.|Avg Step: 1.15 sec.|Time remaining: 286.22 sec.
+INFO> elapsed: 1.18 sec.|len: 8|Episode 5/1000|Avg Length: 18.00|eps: 0.900|steps: 0|Avg Ep: 0.24 sec.|Avg Step: 1.18 sec.|Time remaining: 234.96 sec.
+INFO> Updating target network at episode 5
+INFO> elapsed: 1.20 sec.|len: 10|Episode 6/1000|Avg Length: 16.00|eps: 0.900|steps: 0|Avg Ep: 0.20 sec.|Avg Step: 1.20 sec.|Time remaining: 199.19 sec.
+INFO> elapsed: 4.71 sec.|len: 43|Episode 7/1000|Avg Length: 15.00|eps: 0.894|steps: 13|Avg Ep: 0.67 sec.|Avg Step: 0.34 sec.|Time remaining: 667.81 sec.
+INFO> elapsed: 7.93 sec.|len: 15|Episode 8/1000|Avg Length: 19.00|eps: 0.887|steps: 29|Avg Ep: 0.99 sec.|Avg Step: 0.26 sec.|Time remaining: 983.80 sec.
+INFO> elapsed: 11.13 sec.|len: 15|Episode 9/1000|Avg Length: 18.50|eps: 0.880|steps: 45|Avg Ep: 1.24 sec.|Avg Step: 0.24 sec.|Time remaining: 1225.23 sec.
+INFO> elapsed: 13.74 sec.|len: 12|Episode 10/1000|Avg Length: 18.11|eps: 0.875|steps: 58|Avg Ep: 1.37 sec.|Avg Step: 0.23 sec.|Time remaining: 1359.80 sec.
+INFO> Updating target network at episode 10
+INFO> elapsed: 18.91 sec.|len: 25|Episode 11/1000|Avg Length: 17.50|eps: 0.863|steps: 84|Avg Ep: 1.72 sec.|Avg Step: 0.22 sec.|Time remaining: 1700.43 sec.
+INFO> elapsed: 22.11 sec.|len: 15|Episode 12/1000|Avg Length: 18.18|eps: 0.857|steps: 100|Avg Ep: 1.84 sec.|Avg Step: 0.22 sec.|Time remaining: 1820.33 sec.
+INFO> elapsed: 25.40 sec.|len: 15|Episode 13/1000|Avg Length: 17.92|eps: 0.850|steps: 116|Avg Ep: 1.95 sec.|Avg Step: 0.22 sec.|Time remaining: 1928.82 sec.
+INFO> elapsed: 27.85 sec.|len: 11|Episode 14/1000|Avg Length: 17.69|eps: 0.845|steps: 128|Avg Ep: 1.99 sec.|Avg Step: 0.22 sec.|Time remaining: 1961.10 sec.
+INFO> elapsed: 31.07 sec.|len: 15|Episode 15/1000|Avg Length: 17.21|eps: 0.838|steps: 144|Avg Ep: 2.07 sec.|Avg Step: 0.21 sec.|Time remaining: 2040.26 sec.
+INFO> Updating target network at episode 15
+INFO> elapsed: 34.33 sec.|len: 15|Episode 16/1000|Avg Length: 17.07|eps: 0.832|steps: 160|Avg Ep: 2.15 sec.|Avg Step: 0.21 sec.|Time remaining: 2111.48 sec.
+INFO> elapsed: 36.16 sec.|len: 8|Episode 17/1000|Avg Length: 16.94|eps: 0.828|steps: 169|Avg Ep: 2.13 sec.|Avg Step: 0.21 sec.|Time remaining: 2091.00 sec.
+INFO> elapsed: 39.58 sec.|len: 16|Episode 18/1000|Avg Length: 16.41|eps: 0.821|steps: 186|Avg Ep: 2.20 sec.|Avg Step: 0.21 sec.|Time remaining: 2159.18 sec.
+INFO> elapsed: 44.85 sec.|len: 25|Episode 19/1000|Avg Length: 16.39|eps: 0.810|steps: 212|Avg Ep: 2.36 sec.|Avg Step: 0.21 sec.|Time remaining: 2315.63 sec.
+INFO> elapsed: 47.06 sec.|len: 10|Episode 20/1000|Avg Length: 16.84|eps: 0.806|steps: 223|Avg Ep: 2.35 sec.|Avg Step: 0.21 sec.|Time remaining: 2306.13 sec.

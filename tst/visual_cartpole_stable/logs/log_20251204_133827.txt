@@ -1,0 +1,23 @@
+INFO> Starting train_agent_vision()
+INFO> Setting random seeds for reproducibility to 42
+INFO> Training the agent
+INFO> Train the DQN agent on CartPole using vision input
+INFO> Action size: 2
+INFO> Starting from scratch
+INFO> Start time: 2025-12-04 13:38:28
+INFO> Training DQN Agent on CartPole-v1 (Vision-based)
+INFO> Device: mps
+INFO> --------------------------------------------------
+INFO> Updating target network at episode 0
+INFO> Checkpoint saved to /Users/dotan/projects/RL2025/data/cartpole_vision/run_20251204_133827//checkpoints//checkpoint_0.pth
+INFO> elapsed: 0.53 sec.|Episode 4/1000|Score: 14|Avg Score: 20.50|eps: 0.900|steps: 0|Avg Ep: 0.13 sec.|Avg Step: 0.53 sec.|Time remaining: 132.56 sec.
+INFO> Updating target network at episode 5
+INFO> elapsed: 1.04 sec.|Episode 8/1000|Score: 13|Avg Score: 16.75|eps: 0.897|steps: 7|Avg Ep: 0.13 sec.|Avg Step: 0.13 sec.|Time remaining: 129.28 sec.
+INFO> Updating target network at episode 10
+INFO> elapsed: 4.64 sec.|Episode 12/1000|Score: 20|Avg Score: 17.58|eps: 0.863|steps: 84|Avg Ep: 0.39 sec.|Avg Step: 0.05 sec.|Time remaining: 381.79 sec.
+INFO> Updating target network at episode 15
+INFO> elapsed: 8.48 sec.|Episode 16/1000|Score: 10|Avg Score: 18.38|eps: 0.829|steps: 167|Avg Ep: 0.53 sec.|Avg Step: 0.05 sec.|Time remaining: 521.63 sec.
+INFO> elapsed: 11.84 sec.|Episode 20/1000|Score: 11|Avg Score: 18.25|eps: 0.800|steps: 238|Avg Ep: 0.59 sec.|Avg Step: 0.05 sec.|Time remaining: 580.24 sec.
+INFO> Updating target network at episode 20
+INFO> elapsed: 15.10 sec.|Episode 24/1000|Score: 15|Avg Score: 18.12|eps: 0.773|steps: 308|Avg Ep: 0.63 sec.|Avg Step: 0.05 sec.|Time remaining: 613.88 sec.
+INFO> Updating target network at episode 25

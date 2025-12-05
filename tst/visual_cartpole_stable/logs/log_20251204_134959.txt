@@ -1,0 +1,40 @@
+INFO> Starting train_agent_vision()
+INFO> Setting random seeds for reproducibility to 42
+INFO> Training the agent
+DEBUG> Using selector: KqueueSelector
+DEBUG> Popen(['git', 'version'], cwd=/Users/dotan/projects/RL2025, stdin=None, shell=False, universal_newlines=False)
+DEBUG> Popen(['git', 'version'], cwd=/Users/dotan/projects/RL2025, stdin=None, shell=False, universal_newlines=False)
+DEBUG> sys.platform='darwin', git_executable='git'
+DEBUG> Popen(['git', 'rev-parse', '--show-toplevel'], cwd=/Users/dotan/projects/RL2025, stdin=None, shell=False, universal_newlines=False)
+DEBUG> Starting new HTTPS connection (1): api.wandb.ai:443
+DEBUG> https://api.wandb.ai:443 "POST /graphql HTTP/1.1" 200 None
+DEBUG> https://api.wandb.ai:443 "POST /graphql HTTP/1.1" 200 None
+DEBUG> sys.platform='darwin', git_executable='git'
+DEBUG> Popen(['git', 'cat-file', '--batch-check'], cwd=/Users/dotan/projects/RL2025, stdin=<valid stream>, shell=False, universal_newlines=False)
+INFO> Train the DQN agent on CartPole using vision input
+INFO> Action size: 2
+INFO> Starting from scratch
+INFO> Start time: 2025-12-04 13:50:01
+INFO> Training DQN Agent on CartPole-v1 (Vision-based)
+INFO> Device: mps
+INFO> --------------------------------------------------
+INFO> Updating target network at episode 0
+INFO> Checkpoint saved to /Users/dotan/projects/RL2025/data/cartpole_vision/run_20251204_134959//checkpoints//checkpoint_0.pth
+INFO> elapsed: 0.56 sec.|Episode 4/1000|Score: 13|Avg Score: 27.75|eps: 0.900|steps: 0|Avg Ep: 0.14 sec.|Avg Step: 0.56 sec.|Time remaining: 138.67 sec.
+INFO> Updating target network at episode 5
+INFO> elapsed: 4.77 sec.|Episode 8/1000|Score: 27|Avg Score: 26.75|eps: 0.862|steps: 87|Avg Ep: 0.60 sec.|Avg Step: 0.05 sec.|Time remaining: 591.45 sec.
+INFO> Updating target network at episode 10
+INFO> elapsed: 8.18 sec.|Episode 12/1000|Score: 23|Avg Score: 23.83|eps: 0.832|steps: 159|Avg Ep: 0.68 sec.|Avg Step: 0.05 sec.|Time remaining: 673.51 sec.
+INFO> Updating target network at episode 15
+INFO> elapsed: 12.69 sec.|Episode 16/1000|Score: 16|Avg Score: 23.88|eps: 0.793|steps: 255|Avg Ep: 0.79 sec.|Avg Step: 0.05 sec.|Time remaining: 780.39 sec.
+INFO> elapsed: 15.65 sec.|Episode 20/1000|Score: 14|Avg Score: 22.20|eps: 0.770|steps: 317|Avg Ep: 0.78 sec.|Avg Step: 0.05 sec.|Time remaining: 766.62 sec.
+INFO> Updating target network at episode 20
+INFO> elapsed: 20.42 sec.|Episode 24/1000|Score: 30|Avg Score: 22.75|eps: 0.732|steps: 419|Avg Ep: 0.85 sec.|Avg Step: 0.05 sec.|Time remaining: 830.43 sec.
+INFO> Updating target network at episode 25
+INFO> elapsed: 23.16 sec.|Episode 28/1000|Score: 18|Avg Score: 21.57|eps: 0.711|steps: 477|Avg Ep: 0.83 sec.|Avg Step: 0.05 sec.|Time remaining: 804.03 sec.
+INFO> Updating target network at episode 30
+INFO> elapsed: 26.53 sec.|Episode 32/1000|Score: 14|Avg Score: 21.12|eps: 0.686|steps: 549|Avg Ep: 0.83 sec.|Avg Step: 0.05 sec.|Time remaining: 802.68 sec.
+INFO> Updating target network at episode 35
+INFO> elapsed: 29.97 sec.|Episode 36/1000|Score: 20|Avg Score: 20.83|eps: 0.662|steps: 623|Avg Ep: 0.83 sec.|Avg Step: 0.05 sec.|Time remaining: 802.45 sec.
+INFO> elapsed: 33.84 sec.|Episode 40/1000|Score: 29|Avg Score: 20.82|eps: 0.635|steps: 706|Avg Ep: 0.85 sec.|Avg Step: 0.05 sec.|Time remaining: 812.08 sec.
+INFO> Updating target network at episode 40

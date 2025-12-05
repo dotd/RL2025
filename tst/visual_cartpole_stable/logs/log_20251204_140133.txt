@@ -1,0 +1,56 @@
+INFO> Args:
+{
+  "train_episodes": 1000,
+  "target_update_freq": 5,
+  "epsilon_max": 0.9,
+  "epsilon_min": 0.01,
+  "learning_rate": 0.001,
+  "batch_size": 128,
+  "buffer_size": 10000,
+  "gamma": 0.99,
+  "frequency_save_check_points": 100,
+  "run_folder": "/Users/dotan/projects/RL2025/data/cartpole_vision/run_20251204_140133/",
+  "threshold_early_stopping": 400,
+  "episodes_early_stopping": 100,
+  "num_frames": 2,
+  "optimization_type": "rmsprop",
+  "network_start_path": null,
+  "tau_decay": 2000,
+  "device": "cpu",
+  "seed": 42,
+  "frequency_print_progress": 4,
+  "episode_length": 200,
+  "resize_pixels": 80,
+  "use_cv2_for_preprocessing": false
+}
+INFO> Starting train_agent_vision()
+INFO> Setting random seeds for reproducibility to 42
+INFO> Training the agent
+DEBUG> Using selector: KqueueSelector
+DEBUG> Popen(['git', 'version'], cwd=/Users/dotan/projects/RL2025, stdin=None, shell=False, universal_newlines=False)
+DEBUG> Popen(['git', 'version'], cwd=/Users/dotan/projects/RL2025, stdin=None, shell=False, universal_newlines=False)
+DEBUG> sys.platform='darwin', git_executable='git'
+DEBUG> Popen(['git', 'rev-parse', '--show-toplevel'], cwd=/Users/dotan/projects/RL2025, stdin=None, shell=False, universal_newlines=False)
+DEBUG> Starting new HTTPS connection (1): api.wandb.ai:443
+DEBUG> https://api.wandb.ai:443 "POST /graphql HTTP/1.1" 200 None
+DEBUG> https://api.wandb.ai:443 "POST /graphql HTTP/1.1" 200 None
+DEBUG> sys.platform='darwin', git_executable='git'
+DEBUG> Popen(['git', 'cat-file', '--batch-check'], cwd=/Users/dotan/projects/RL2025, stdin=<valid stream>, shell=False, universal_newlines=False)
+INFO> Train the DQN agent on CartPole using vision input
+INFO> Action size: 2
+INFO> Starting from scratch
+INFO> Start time: 2025-12-04 14:01:35
+INFO> Training DQN Agent on CartPole-v1 (Vision-based)
+INFO> Device: mps
+INFO> --------------------------------------------------
+INFO> Updating target network at episode 0
+INFO> Checkpoint saved to /Users/dotan/projects/RL2025/data/cartpole_vision/run_20251204_140133//checkpoints//checkpoint_0.pth
+INFO> elapsed: 0.66 sec.|Episode 4/1000|Score: 33|Avg Score: 19.50|eps: 0.900|steps: 0|Avg Ep: 0.16 sec.|Avg Step: 0.66 sec.|Time remaining: 163.61 sec.
+INFO> Updating target network at episode 5
+INFO> elapsed: 3.90 sec.|Episode 8/1000|Score: 36|Avg Score: 23.88|eps: 0.872|steps: 64|Avg Ep: 0.49 sec.|Avg Step: 0.06 sec.|Time remaining: 483.39 sec.
+INFO> Updating target network at episode 10
+INFO> elapsed: 6.19 sec.|Episode 12/1000|Score: 9|Avg Score: 20.08|eps: 0.851|steps: 114|Avg Ep: 0.52 sec.|Avg Step: 0.05 sec.|Time remaining: 509.81 sec.
+INFO> Updating target network at episode 15
+INFO> elapsed: 8.55 sec.|Episode 16/1000|Score: 14|Avg Score: 18.25|eps: 0.830|steps: 165|Avg Ep: 0.53 sec.|Avg Step: 0.05 sec.|Time remaining: 525.57 sec.
+INFO> elapsed: 11.08 sec.|Episode 20/1000|Score: 13|Avg Score: 17.35|eps: 0.807|steps: 220|Avg Ep: 0.55 sec.|Avg Step: 0.05 sec.|Time remaining: 542.79 sec.
+INFO> Updating target network at episode 20
